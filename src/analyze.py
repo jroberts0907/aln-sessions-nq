@@ -72,7 +72,9 @@ def block(days: pd.DataFrame, title: str) -> list[str]:
     ]
 
 
-def summarize(days: pd.DataFrame) -> str:
+def summarize(all_days: pd.DataFrame) -> str:
+    start, end = pd.Timestamp(config.STUDY_START), pd.Timestamp(config.STUDY_END)
+    days = all_days[(all_days.index >= start) & (all_days.index <= end)]
     valid = days[days["valid"]]
     pat = valid[valid["asia_engulfs_london"]]
     rest = valid[~valid["asia_engulfs_london"]]
@@ -110,6 +112,23 @@ def summarize(days: pd.DataFrame) -> str:
     for year, g in valid.groupby(valid.index.year):
         gp = g[g["asia_engulfs_london"]]
         lines.append(f"| {year} | {len(gp)} | {rate(gp['ny_break_high'])} | {rate(g['ny_break_high'])} |")
+
+    later = all_days[all_days["valid"] & (all_days.index > end)]
+    if len(later):
+        later_pat = later[later["asia_engulfs_london"]]
+        combined = all_days[all_days["valid"] & (all_days.index >= start)]
+        combined_pat = combined[combined["asia_engulfs_london"]]
+        lines += [
+            "",
+            "## After the study window",
+            "",
+            f"Not included in the headline. {later.index.min():%Y-%m-%d} to {later.index.max():%Y-%m-%d}:",
+            "",
+            f"- Pattern frequency: {rate(later['asia_engulfs_london'])}",
+            f"- Breaks London high, pattern days: {rate(later_pat['ny_break_high'])}",
+            f"- Breaks London high, all days: {rate(later['ny_break_high'])}",
+            f"- Study window plus this period, pattern days: {rate(combined_pat['ny_break_high'])}",
+        ]
     return "\n".join(lines) + "\n"
 
 

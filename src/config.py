@@ -15,6 +15,12 @@ RAW_DIR = "data/raw"
 MAX_TOTAL_SPEND = 100.00
 MAX_PER_REQUEST = 10.00
 
+# --- Study window, New York trading days, inclusive -------------------------
+# Headline statistics use five full calendar years. Later valid days are still
+# reported, separately, in the "After the study window" section of the summary.
+STUDY_START = "2021-01-01"
+STUDY_END = "2025-12-31"
+
 # --- Session windows, America/New_York, [start, end) ------------------------
 # Defaults follow NQStats' ALN study: Asia 20:00-02:00, London 02:00-08:00,
 # NY 08:00-16:00. Asia starts the evening BEFORE the NY session it belongs to.
