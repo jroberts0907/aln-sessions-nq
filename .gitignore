@@ -1,0 +1,15 @@
+# Raw market data is licensed by Databento -- never commit it
+data/raw/
+*.dbn
+*.dbn.zst
+# Includes results/days.csv: per-day levels derived from licensed data, generated locally
+*.csv
+data/spend_log.json
+.env*
+!.env.example
+__pycache__/
+.pytest_cache/
+.DS_Store
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
