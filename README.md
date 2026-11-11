@@ -1,7 +1,7 @@
 # ALN Sessions: Does NY Break London's High When Asia Engulfs London?
 
 Undergraduate research under Dr. Steve Rubin (FMU). This repo independently tests
-one claim from the NQStats 10-year *ALN Sessions* study on E-mini Nasdaq-100 (NQ) futures:
+one claim from the NQStats 5-year *ALN Sessions* study on E-mini Nasdaq-100 (NQ) futures:
 
 > **Asia Engulfs London:** Asia's high is above London's high and Asia's low is below
 > London's low. On these days, NQStats reports that the New York session **breaks
