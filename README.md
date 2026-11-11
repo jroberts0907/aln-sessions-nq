@@ -42,7 +42,9 @@ python src/download.py 2024 --download
 #   check your remaining credit in the Databento portal, then repeat for 2025, 2023, ...
 
 python src/analyze.py              # -> results/summary.md, results/days.csv
-python -m pytest tests             # synthetic-data checks
+python -m pytest tests             # synthetic-data checks, plus a check that the raw
+                                   # data reproduces the published results (skipped
+                                   # if data/raw/ is missing)
 ```
 
 Raw data is **not** included (Databento license). `results/days.csv` is also left out of
