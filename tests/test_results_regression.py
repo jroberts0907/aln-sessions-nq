@@ -18,30 +18,36 @@ import config  # noqa: E402
 from analyze import summarize  # noqa: E402
 from sessions import build_days, load_raw  # noqa: E402
 
-STUDY_YEARS = range(2021, 2026)
+STUDY_YEARS = range(2016, 2026)
 RAW = ROOT / config.RAW_DIR
 HAVE_DATA = all((RAW / f"NQ_{config.SCHEMA}_{y}.dbn.zst").exists() for y in STUDY_YEARS)
 
-pytestmark = pytest.mark.skipif(not HAVE_DATA, reason="raw Databento files for 2021-2025 not in data/raw/")
+pytestmark = pytest.mark.skipif(not HAVE_DATA, reason="raw Databento files for 2016-2025 not in data/raw/")
 
 # Figures published in README.md / results/summary.md
 EXPECTED = {
-    "trading_days": 1292,
-    "valid_days": 1288,
-    "pattern_days": 60,
-    "pattern_break_high": 51,
-    "rest_days": 1228,
-    "rest_break_high": 917,
-    "all_break_high": 968,
+    "trading_days": 2582,
+    "valid_days": 2574,
+    "pattern_days": 169,
+    "pattern_break_high": 139,
+    "rest_days": 2405,
+    "rest_break_high": 1794,
+    "all_break_high": 1933,
 }
 EXPECTED_BY_YEAR = {  # year: (pattern days, pattern breaks high, valid days, all breaks high)
+    2016: (13, 10, 258, 182),
+    2017: (29, 24, 257, 205),
+    2018: (21, 20, 257, 193),
+    2019: (19, 13, 258, 195),
+    2020: (27, 21, 256, 190),
     2021: (15, 13, 258, 194),
     2022: (8, 6, 258, 180),
     2023: (5, 4, 257, 200),
     2024: (13, 12, 259, 197),
     2025: (19, 16, 256, 197),
 }
-EXPECTED_INVALID = {"2021-04-02", "2023-04-07", "2025-01-09", "2025-11-28"}
+EXPECTED_INVALID = {"2018-12-05", "2020-03-16", "2020-03-17", "2020-03-18",
+                    "2021-04-02", "2023-04-07", "2025-01-09", "2025-11-28"}
 
 
 @pytest.fixture(scope="module")

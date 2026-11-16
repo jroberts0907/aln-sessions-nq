@@ -16,9 +16,10 @@ MAX_TOTAL_SPEND = 100.00
 MAX_PER_REQUEST = 10.00
 
 # --- Study window, New York trading days, inclusive -------------------------
-# Headline statistics use five full calendar years. Later valid days are still
-# reported, separately, in the "After the study window" section of the summary.
-STUDY_START = "2021-01-01"
+# Headline statistics use ten full calendar years, the same 2016-2025 window as
+# the NQStats ALN Sessions study. Later valid days are still reported,
+# separately, in the "After the study window" section of the summary.
+STUDY_START = "2016-01-01"
 STUDY_END = "2025-12-31"
 
 # --- Session windows, America/New_York, [start, end) ------------------------
