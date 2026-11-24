@@ -1,6 +1,6 @@
 # ALN Sessions: Does NY Break London's High When Asia Engulfs London?
 
-Undergraduate research under Dr. Steve Rubin (FMU). This repo independently tests
+Undergraduate research under Dr. Konstantin Rubin (FMU). This repo independently tests
 one claim from the NQStats 10-year *ALN Sessions* study (2016–2025) on E-mini Nasdaq-100 (NQ) futures:
 
 > **Asia Engulfs London:** Asia's high is above London's high and Asia's low is below
@@ -42,6 +42,8 @@ python src/download.py 2024 --download
 #   check your remaining credit in the Databento portal, then repeat for 2025, 2023, ...
 
 python src/analyze.py              # -> results/summary.md, results/days.csv
+python src/out_of_sample.py        # optional, needs 2011-2015 and 2026 downloaded too
+                                   # -> results/out_of_sample.md
 python -m pytest tests             # synthetic-data checks, plus a check that the raw
                                    # data reproduces the published results (skipped
                                    # if data/raw/ is missing)
@@ -72,7 +74,7 @@ roll fell inside a session window. Full output is in [`results/summary.md`](resu
 
 The NQStats figures replicate closely: every one falls inside this study's confidence
 interval. NY breaks London's high on about 75% of all days, so the useful figure is the
-7.6-point gap between pattern and non-pattern days. Over ten years that gap is significant
+7.7-point gap between pattern and non-pattern days (82.2% vs 74.6%, unrounded 7.65). Over ten years that gap is significant
 at the 0.05 level (two-proportion z-test, p = 0.026), though it is a modest edge over the
 base rate, not an 81% edge.
 
@@ -95,3 +97,22 @@ from year to year: in 2019 it was below the base rate.
 **Earlier five-year run.** An earlier version of this study used only 2021–2025: 85.0% (51/60,
 95% CI 73.9–91.9%) against 74.7% on other days, p = 0.07. Sixty pattern days was too few to
 compare with NQStats' 175, so the window was widened to match theirs.
+
+## Out-of-sample checks
+
+The same rules applied to the years before and after the study window
+(`src/out_of_sample.py`; full output, including every year, in
+[`results/out_of_sample.md`](results/out_of_sample.md)). These are not part of the headline.
+
+| Sample | Pattern days | NY breaks London high, pattern days | Other days | Gap | p-value |
+|---|---|---|---|---|---|
+| 2011–2015 (before NQStats' window) | 45 | 82.2% (37/45, 95% CI 68.7–90.7%) | 76.3% | +5.9 pts | 0.357 |
+| 2016–2025 (study window) | 169 | 82.2% (139/169, 95% CI 75.8–87.3%) | 74.6% | +7.7 pts | 0.026 |
+| 2026 through Nov 16 | 28 | 67.9% (19/28, 95% CI 49.3–82.1%) | 73.7% | −5.9 pts | 0.512 |
+| 2016 through Nov 16, 2026 | 197 | 80.2% (158/197, 95% CI 74.1–85.2%) | 74.5% | +5.7 pts | 0.076 |
+
+The hit rate on pattern days is the same 82.2% in the five earlier years, but with only 45
+pattern days the gap over other days is not significant. In 2026 the rate on pattern days
+(67.9%, 28 days) is below the ordinary rate, also on a small sample. Neither period
+overturns or confirms the main result; together they show that the edge is imprecise and
+varies by sample, which is why the headline is the 7.7-point gap and not the 82% hit rate.
