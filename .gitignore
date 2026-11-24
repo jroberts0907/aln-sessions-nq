@@ -13,3 +13,6 @@ __pycache__/
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# Slides are shared separately, not in the repo
+*.pptx
