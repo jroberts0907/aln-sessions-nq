@@ -16,3 +16,6 @@ __pycache__/
 
 # Slides are shared separately, not in the repo
 *.pptx
+
+# Abstract and slides go to Dr. Rubin directly, not in the public repo
+docs/
